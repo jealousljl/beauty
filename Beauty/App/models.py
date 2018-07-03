@@ -69,7 +69,6 @@ class GCategory2(models.Model):
         db_table = 'g_category2'
 
 
-
 class Goods(models.Model):
     c_code = models.IntegerField()
     c2_code = models.IntegerField()
@@ -86,7 +85,6 @@ class Goods(models.Model):
     g_createtime = models.DateTimeField()
     g_changetime = models.DateTimeField()
     g_class = models.CharField(max_length=255)
-
 
     class Meta:
         managed = False
@@ -110,7 +108,6 @@ class Orders(models.Model):
     o_changetime = models.DateTimeField(blank=True, null=True)
     o_num = models.IntegerField()
     o_reciveaddr = models.CharField(max_length=512)
-    #o_goods = models.ManyToManyField(Goods,through='Goods')
 
     class Meta:
         managed = False
