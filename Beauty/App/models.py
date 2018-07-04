@@ -47,7 +47,6 @@ class Cart(models.Model):
 
 
 class GCategory(models.Model):
-    id = models.IntegerField(primary_key=True)
     c_name = models.CharField(max_length=50, blank=True, null=True)
     c_code = models.IntegerField(blank=True, null=True)
     c_desc = models.CharField(max_length=255, blank=True, null=True)
@@ -58,7 +57,6 @@ class GCategory(models.Model):
 
 
 class GCategory2(models.Model):
-    id = models.IntegerField(primary_key=True)
     c2_name = models.CharField(max_length=50, blank=True, null=True)
     c2_desc = models.CharField(max_length=255, blank=True, null=True)
     c2_code = models.IntegerField(blank=True, null=True)
@@ -75,15 +73,15 @@ class Goods(models.Model):
     g_name = models.CharField(max_length=50)
     g_desc = models.CharField(max_length=255, blank=True, null=True)
     g_info = models.CharField(max_length=255, blank=True, null=True)
-    g_mktprice = models.FloatField()
-    g_price = models.FloatField()
+    g_mktprice = models.CharField(max_length=20)
+    g_price = models.CharField(max_length=20)
     g_goodsprops = models.CharField(max_length=255, blank=True, null=True)
     g_pics = models.CharField(max_length=255, blank=True, null=True)
     g_inventory = models.IntegerField()
     g_sale = models.IntegerField()
     g_status = models.IntegerField()
-    g_createtime = models.DateTimeField()
-    g_changetime = models.DateTimeField()
+    g_createtime = models.DateTimeField(blank=True, null=True)
+    g_changetime = models.DateTimeField(blank=True, null=True)
     g_class = models.CharField(max_length=255)
 
     class Meta:
@@ -101,13 +99,13 @@ class Goodsorder(models.Model):
 
 
 class Orders(models.Model):
-    u = models.ForeignKey('User', models.DO_NOTHING)
+    u = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
     o_price = models.FloatField()
     o_status = models.IntegerField()
-    o_creattime = models.DateTimeField(blank=True, null=True)
-    o_changetime = models.DateTimeField(blank=True, null=True)
+    o_creattime = models.DateTimeField()
+    o_changetime = models.DateTimeField()
     o_num = models.IntegerField()
-    o_reciveaddr = models.CharField(max_length=512)
+    o_goods = models.ManyToManyField(Goods, through='Goodsorder')
 
     class Meta:
         managed = False
@@ -117,6 +115,7 @@ class Orders(models.Model):
 class User(models.Model):
     u_name = models.CharField(max_length=1024)
     u_pwd = models.CharField(max_length=1024)
+    u_tel = models.IntegerField(blank=True, null=True)
     u_ticket = models.TextField()
     u_outtime = models.DateTimeField()
 
